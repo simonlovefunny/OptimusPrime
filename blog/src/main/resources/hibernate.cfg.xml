@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+	
+		<!-- Database connection settings -->
+		
+		<!-- 表示使用 mysql 数据库驱动类 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		
+		
+		<!-- jdbc 的连接 url 和数据库（使用我们之前新建的 hibernate）-->
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/blog</property>
+		
+		<property name="hibernate.connection.username">root</property>
+		
+		<property name="hibernate.connection.password">root</property>
+		
+		
+		<!-- 配置控制台输出操作的sql-->  
+        <property name="show_sql">true</property>  
+        <!-- 设置格式为 sql -->
+        <property name="format_sql">true</property>  
+        <!-- Drop and re-create the database schema on startup -->  
+         <!-- 第一次加载 hibernate 时根据实体类自动建立表结构，以后自动更新表结构 -->
+        <property name="hbm2ddl.auto">update</property>  
+	
+		  
+        <!-- 配置数据库方言为MYSQL -->        
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>	 
+		
+		<!-- 删除对象后，将其OID设置为null -->
+		<property name="use_identifier_rollback">true</property>
+		
+		<!-- 配置c3p0数据源 -->
+		<property name="hibernate.c3p0.max_size">10</property>
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="c3p0.acquire_increment">2</property>
+		
+		<property name="c3p0.idle_test_period">2000</property>
+		<property name="c3p0.timeout">2000</property>
+		
+		<property name="c3p0.max_statements">10</property>
+		
+		<!--JDBC的Statement每次从数据库取出的记录值-->
+		<property name="jdbc.fetch_size">100</property>
+		<!-- 指定对数据库进行批量删除 更新和插入的批次大小 -->
+		<property name="jdbc.batch_size">30</property>
+		
+		<!-- 启用二级缓存 -->
+		<property name="cache.use_second_level_cache">true</property>
+		<!-- 指定二级缓存的实现类 -->
+		<property name="cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		<property name="cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
+		
+		<!-- 启用查询缓存 -->
+		<property name="cache.use_query_cache">true</property>
+		<!-- 映射文件或者类路径 -->
+		<!-- <mapping class="entity.User"/> -->
+<!-- 		<mapping resource="entity/User.hbm.xml"/>  -->
+	<!-- 	<mapping resource="com/simon/hibernate/demo/helloworld/News.hbm.xml"></mapping> -->
+		<!-- 单向多对一配置 -->
+		<!-- <mapping resource="com/simon/hibernate/demo/map/manytoone/Grade.hbm.xml"></mapping>
+		<mapping resource="com/simon/hibernate/demo/map/manytoone/Student.hbm.xml"></mapping> -->
+		
+		<!-- hibernate加载策略测试 -->
+		<!-- <mapping resource="com/simon/hibernate/demo/strategy/Grade.hbm.xml"></mapping>
+		<mapping resource="com/simon/hibernate/demo/strategy/Student.hbm.xml"></mapping> -->
+		
+		<mapping resource="com/blog/model/Blog.hbm.xml"></mapping>
+		<mapping resource="com/blog/model/User.hbm.xml"></mapping>
+ 		<!-- 设置类使用二级缓存 -->
+		<!--<class-cache usage="read-only" class="com.simon.hibernate.demo.map.manytoone.Grade"/> -->
+	
+		<!--设置集合级别的二级缓存,集合中的持久化类也需要配置二级缓存 -->
+		<!--<collection-cache usage="read-only" collection="com.simon.hibernate.demo.map.manytoone.Grade.students"/> -->
+		 
+
+		
+	</session-factory>
+
+	
+</hibernate-configuration>
